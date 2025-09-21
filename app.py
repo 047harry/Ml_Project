@@ -16,8 +16,9 @@ load_dotenv()
 st.set_page_config(page_title="Stock Market App", layout="wide")
 
 # Get API keys from environment variables
-API_KEY = os.getenv("ALPHA_VANTAGE_API_KEY")
-NEWS_API_KEY = os.getenv("NEWS_API_KEY")
+# For Streamlit deployment
+API_KEY = st.secrets.get("ALPHA_VANTAGE_API_KEY") or os.getenv("ALPHA_VANTAGE_API_KEY")
+NEWS_API_KEY = st.secrets.get("NEWS_API_KEY") or os.getenv("NEWS_API_KEY")
 
 if not API_KEY:
     st.error("❌ Alpha Vantage API key not found! Please check your .env file.")
