@@ -7,6 +7,25 @@ from datetime import datetime, timedelta
 from sklearn.svm import SVR
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+# Set Page Configuration
+st.set_page_config(page_title="Stock Market App", layout="wide")
+
+# Get API keys from environment variables
+API_KEY = os.getenv("ALPHA_VANTAGE_API_KEY")
+NEWS_API_KEY = os.getenv("NEWS_API_KEY")
+
+if not API_KEY:
+    st.error("❌ Alpha Vantage API key not found! Please check your .env file.")
+    st.stop()
+
+if not NEWS_API_KEY:
+    st.error("❌ News API key not found! Please check your .env file.")
+    st.stop()
 
 # Set Page Configuration
 st.set_page_config(page_title="Stock Market App", layout="wide")
@@ -183,9 +202,6 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-# API Key and other original code continues...
-API_KEY = "25BJR00EJM20NL4H"
-
 # Stock Symbols
 companies = {
     "Apple (AAPL)": "AAPL",
@@ -265,8 +281,6 @@ if st.session_state.page == "🏠 Home":
     # Add this at the top with other imports
     from datetime import datetime
 
-    # NewsAPI Configuration (Get your free API key from https://newsapi.org/)
-    NEWS_API_KEY = "e2d4e597c657407b9c1dee3a880cd670"  # Replace with your actual key
 
     def fetch_news():
         """Fetch financial news from NewsAPI"""
